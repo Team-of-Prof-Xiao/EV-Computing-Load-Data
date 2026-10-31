@@ -1,8 +1,8 @@
-# Alibaba cluster-trace-v2026-spot-gpu (not included)
+# Alibaba cluster-trace-v2026-spot-gpu
 
-**Source:** https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2026-spot-gpu
+**Source:** Alibaba Group, https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2026-spot-gpu, downloaded on 2026-10-30. The files are unchanged; `README.upstream.md` is the upstream README.
 
-The upstream repository has no license file, and its README asks users to cite the paper below, so the files are not stored here. Download them and check their SHA-256 with `bash scripts/fetch_alibaba.sh`, run from the repository root:
+**License:** Alibaba states no license; its README asks users to cite the paper below. `bash scripts/fetch_alibaba.sh`, run from the repository root, checks these files against the official release (SHA-256).
 
 | File | Bytes | Contents |
 |---|---|---|

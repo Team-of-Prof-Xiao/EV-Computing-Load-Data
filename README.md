@@ -4,7 +4,7 @@ English | [中文](README.zh-CN.md)
 
 Public datasets for studying flexible electric-vehicle (EV) charging and AI computing loads together with Texas wind and solar forecasts, checked and documented in one place.
 
-Each dataset keeps its original license. Files whose licenses allow redistribution are included unchanged; the others are fetched or rebuilt with the scripts in this repository and checked against recorded checksums. Please read [Data sources and statement](#data-sources-and-statement) before using the data.
+All six datasets are included, each with its source and license status. Files are copied unchanged, except that the EIA-930 and ERCOT files are hourly extracts of the published data; SHA-256 checksums of all data files are in `SHA256SUMS`. Please read [Data sources and statement](#data-sources-and-statement) before using the data.
 
 ## Overview
 
@@ -13,9 +13,9 @@ Each dataset keeps its original license. Files whose licenses allow redistributi
 | [`data/utrecht_office_ev`](data/utrecht_office_ev) | EV charging sessions of a large office parking lot in Utrecht, the Netherlands | 2020-08-25 to 2024-10-02 | 55,379 sessions, about 300 charge points | CC BY-NC-SA 4.0 | Yes |
 | [`data/chargeplace_scotland`](data/chargeplace_scotland) | Charging sessions on the ChargePlace Scotland public network | 2022-10-01 to 2024-03-31 | about 3.12 million sessions, 3,518 charge points | CC BY 4.0 | Yes |
 | [`data/eia930`](data/eia930) | Hourly demand, generation by source and day-ahead demand forecast for ERCOT (Texas), from EIA-930 | 2024-01-01 to 2026-10-27 | 24,743 hours | Public domain | Yes |
-| [`data/ercot`](data/ercot) | Hourly day-ahead wind and solar forecasts and actual output for ERCOT | 2024-01-01 to 2026-10-27 | 24,719 hours | ERCOT terms of use | No: rebuild with a script |
-| [`data/alibaba_spot_gpu_v2026`](data/alibaba_spot_gpu_v2026) | GPU jobs in Alibaba clusters, high-priority and Spot | 184 days, relative time | 466,867 jobs, 10,412 GPUs | No license; cite the paper | No: fetch with a script |
-| [`data/alibaba_maas_v2026`](data/alibaba_maas_v2026) | Hourly metrics of LLM inference applications at Alibaba | one week, relative time | 7,401 rows, 4 applications | No license; cite the paper | No: fetch with a script |
+| [`data/ercot`](data/ercot) | Hourly day-ahead wind and solar forecasts and actual output for ERCOT | 2024-01-01 to 2026-10-27 | 24,719 hours | Not stated; ERCOT terms of use apply | Yes |
+| [`data/alibaba_spot_gpu_v2026`](data/alibaba_spot_gpu_v2026) | GPU jobs in Alibaba clusters, high-priority and Spot | 184 days, relative time | 466,867 jobs, 10,412 GPUs | Not stated; cite the paper | Yes |
+| [`data/alibaba_maas_v2026`](data/alibaba_maas_v2026) | Hourly metrics of LLM inference applications at Alibaba | one week, relative time | 7,401 rows, 4 applications | Not stated; cite the paper | Yes |
 
 ## The datasets
 
@@ -42,27 +42,29 @@ Each dataset keeps its original license. Files whose licenses allow redistributi
 - **Why it is useful.** It gives hourly wind and solar output, the generation mix (from which carbon intensity can be estimated) and the demand of a large grid with a high share of renewables.
 - **Caveats.** Files before July 2024 use EIA's older layout: hydro includes pumped storage and there are no storage columns. The last row of 2026 holds only the demand forecast.
 
-### 4. ERCOT day-ahead wind and solar forecasts (rebuild with a script)
+### 4. ERCOT day-ahead wind and solar forecasts
 
 - **What it is.** ERCOT's own hourly forecasts of total wind and solar output, as published the day before (the 09:55 release), paired with the actual output, from January 2024 to October 2026.
 - **One row** is one hour: the forecasts (STWPF, STPPF and the resource power potential forecasts), the limits in the resources' operating plans, and the actual output, in MW.
 - **Why it is useful.** Forecast minus actual output gives the day-ahead forecast errors that an operator faces when planning the next day.
-- **Not included,** because ERCOT's terms of use do not say whether its reports may be republished. [`data/ercot/README.md`](data/ercot/README.md) explains how to rebuild the files from ERCOT reports NP4-732-CD and NP4-737-CD.
+- **Source.** Extracted with `scripts/extract_ercot_forecasts.py` from ERCOT reports NP4-732-CD and NP4-737-CD, downloaded through the ERCOT Public API. ERCOT states no license for republishing its reports, so its terms of use apply. [`data/ercot/README.md`](data/ercot/README.md) explains how to rebuild the files.
 
-### 5. Alibaba GPU cluster jobs, high-priority and Spot (fetch with a script)
+### 5. Alibaba GPU cluster jobs, high-priority and Spot
 
 - **What it is.** Six months of jobs submitted to Alibaba's GPU clusters (cluster-trace-v2026-spot-gpu), released with an ASPLOS 2026 paper. High-priority jobs, including long-running services, run when submitted; Spot jobs use spare GPUs, can be preempted and can wait.
 - **One row** is one job: organization, GPU model, numbers of CPUs, GPUs and workers, submission time, duration and job type. A second table lists the 4,278 nodes and their 10,412 GPUs.
 - **Why it is useful.** It separates computing load that cannot wait from load that can be shifted, which is the basis for modeling flexible AI computing demand.
 - **Key figures.** 466,867 jobs over 184 days. High-priority jobs keep about 8,700 GPUs busy on average; Spot jobs account for 2.4% of GPU-hours, with a median duration of 0.58 h.
 - **Caveats.** Times are relative; see [Known issues](#known-issues).
+- **Source.** Unchanged copy of the official release, including its README (`README.upstream.md`). Alibaba states no license and asks users to cite the paper.
 
-### 6. Alibaba LLM inference metrics (fetch with a script)
+### 6. Alibaba LLM inference metrics
 
 - **What it is.** One week of hourly metrics for four online large-language-model applications on Alibaba's Model-as-a-Service platform (the `app_metrics` file of cluster-trace-v2026-maas), released with an ATC '26 paper.
 - **One row** is one hourly value of one metric for one series: normalized requests per second, GPU count, token counts, response latencies and KV-cache utilization, split into the prefill and decode stages.
 - **Why it is useful.** It shows the daily shape of online inference demand: the summed normalized request rate rises from about 0.2 at night to about 2.3 in the afternoon and evening.
 - **Caveats.** Only one week and four applications; times are relative.
+- **Source.** Unchanged copy of the official file. Alibaba states no license and asks users to cite the paper.
 
 ## Known issues
 
@@ -85,7 +87,7 @@ Requirements: Python 3.9 or later with NumPy, and `curl` for fetching.
 
 ```bash
 shasum -a 256 -c SHA256SUMS      # check the included files
-bash scripts/fetch_alibaba.sh    # download the Alibaba files and check them
+bash scripts/fetch_alibaba.sh    # optional: check the Alibaba files against the official release
 python3 -I scripts/inspect_utrecht.py data/utrecht_office_ev/202410DatasetEVOfficeParking_v0.csv
 python3 -I scripts/inspect_scotland.py data/chargeplace_scotland
 python3 -I scripts/inspect_spot_gpu.py data/alibaba_spot_gpu_v2026
@@ -101,14 +103,14 @@ The inspection scripts only read the data and print summaries. `inspect_scotland
 | Utrecht office parking lot | SmoothEMS met GridShield consortium (University of Twente and partners), via 4TU.ResearchData | https://doi.org/10.4121/80ef3824-3f5d-4e45-8794-3b8791efbd13.v2 | CC BY-NC-SA 4.0 | 2026-10-31, from the Internet Archive copy of the official download; MD5 checksums match 4TU | Unchanged copy |
 | ChargePlace Scotland | K. Davies, University of Strathclyde; data from ChargePlace Scotland and the Scottish Government | https://doi.org/10.15129/1f431af7-5caa-4840-a9ab-c1f3b521e033 | CC BY 4.0 | 2026-10-30 | Unchanged copy, without the author's analysis script |
 | EIA-930 | U.S. Energy Information Administration | https://www.eia.gov/electricity/gridmonitor/ | Public domain | 2026-10-27 | ERCOT rows extracted; values unchanged |
-| ERCOT wind and solar forecasts | Electric Reliability Council of Texas | Reports NP4-732-CD and NP4-737-CD, https://www.ercot.com/ | ERCOT terms of use | 2026-10, through the ERCOT Public API | Not included; rebuild script |
-| Alibaba Spot GPU trace | Alibaba Group | https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2026-spot-gpu | No license; citation requested | 2026-10-30 | Not included; fetch script |
-| Alibaba MaaS trace (app_metrics) | Alibaba Group | https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2026-maas | No license; citation requested | 2026-10-30 | Not included; fetch script |
+| ERCOT wind and solar forecasts | Electric Reliability Council of Texas | Reports NP4-732-CD and NP4-737-CD, https://www.ercot.com/ | Not stated; ERCOT terms of use apply | 2026-10, through the ERCOT Public API | Hourly extract of the day-ahead release |
+| Alibaba Spot GPU trace | Alibaba Group | https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2026-spot-gpu | Not stated; citation requested | 2026-10-30 | Unchanged copy |
+| Alibaba MaaS trace (app_metrics) | Alibaba Group | https://github.com/alibaba/clusterdata/tree/master/cluster-trace-v2026-maas | Not stated; citation requested | 2026-10-30 | Unchanged copy of app_metrics.csv.zip |
 
 **Statement**
 
-1. **Ownership.** All data belong to their original publishers. This repository redistributes only files whose licenses allow it, unchanged and with attribution. Other files are not stored here; obtain them from their publishers under their terms.
-2. **Licenses differ by folder.** The Utrecht data may be used for non-commercial purposes only, and adaptations must be shared under CC BY-NC-SA 4.0. The MIT License of this repository covers only the code in `scripts/`, not the data.
+1. **Ownership.** All data belong to their original publishers. They are redistributed here for research and teaching, with their sources stated: copied unchanged, or for EIA-930 and ERCOT as hourly extracts with values unchanged.
+2. **Licenses differ by folder.** The Utrecht data may be used for non-commercial purposes only, and adaptations must be shared under CC BY-NC-SA 4.0. ERCOT and Alibaba state no license for their data, and this repository grants none; their own terms apply. The MIT License of this repository covers only the code in `scripts/`, not the data.
 3. **No affiliation or endorsement.** This repository is not affiliated with or endorsed by any of the data publishers. The figures in this README come from our own checks and are not official statistics.
 4. **No warranty.** The data and scripts are provided "as is", without warranty of any kind. Check the original sources before relying on them.
 5. **Privacy.** The EV data were anonymized or pseudonymized by their publishers. Do not try to identify individuals, or link the data with other sources for that purpose.
@@ -117,7 +119,7 @@ The inspection scripts only read the data and print summaries. `inspect_scotland
 ## Licenses
 
 - Code in `scripts/`: MIT License, see [LICENSE](LICENSE).
-- Data keep their original licenses, stated in the LICENSE or README file of each data folder: Utrecht CC BY-NC-SA 4.0, ChargePlace Scotland CC BY 4.0 and EIA-930 public domain. ERCOT and Alibaba data are not redistributed here.
+- Data keep their original licenses, stated in the LICENSE or README file of each data folder: Utrecht CC BY-NC-SA 4.0, ChargePlace Scotland CC BY 4.0 and EIA-930 public domain. ERCOT and Alibaba state no license; their terms apply, and their sources must be cited.
 
 ## Citation
 

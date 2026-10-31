@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Download the Alibaba trace files from their official locations and check them against the SHA-256
-# values recorded on 2026-10-30. The upstream repository has no license file, so the files are not
-# stored in this repository. Run from the repository root: bash scripts/fetch_alibaba.sh
+# Check the Alibaba trace files in this repository against the SHA-256 values of the official release
+# (recorded on 2026-10-30), downloading any missing file from its official location.
+# Run from the repository root: bash scripts/fetch_alibaba.sh
 set -euo pipefail
 
 if command -v sha256sum >/dev/null 2>&1; then check() { sha256sum -c -; }; else check() { shasum -a 256 -c -; }; fi

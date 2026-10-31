@@ -1,8 +1,3 @@
 .DS_Store
-# Fetched by scripts/fetch_alibaba.sh; the upstream repository has no license file.
-data/alibaba_spot_gpu_v2026/*.csv
-data/alibaba_spot_gpu_v2026/README.upstream.md
-data/alibaba_maas_v2026/*.zip
-# Rebuilt by scripts/extract_ercot_forecasts.py; not redistributed (ERCOT terms of use).
-data/ercot/*.csv
+# Output of scripts/extract_ercot_forecasts.py when rebuilding
 results/
