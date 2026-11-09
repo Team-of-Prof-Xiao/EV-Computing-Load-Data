@@ -11,6 +11,7 @@ All six datasets are included, each with its source and license status. Files ar
 | Folder | Data | Period | Size | License | Included |
 |---|---|---|---|---|---|
 | [`data/utrecht_office_ev`](data/utrecht_office_ev) | EV charging sessions of a large office parking lot in Utrecht, the Netherlands | 2020-08-25 to 2024-10-02 | 55,379 sessions, about 300 charge points | CC BY-NC-SA 4.0 | Yes |
+| [Utrecht original folder](data/Electric%20Vehicle%20Charging%20Session%20Data%20of%20Large%20Office%20Parking%20Lot%20_1_all) | Newly supplied copy of the Utrecht charging data, with extracted survey documentation | 2020-08-25 to 2024-10-02 | 55,379 sessions (same CSV as the row above); 5 survey documents | Sessions: CC BY-NC-SA 4.0; survey materials: no license stated | Yes |
 | [`data/chargeplace_scotland`](data/chargeplace_scotland) | Charging sessions on the ChargePlace Scotland public network | 2022-10-01 to 2024-03-31 | about 3.12 million sessions, 3,518 charge points | CC BY 4.0 | Yes |
 | [`data/eia930`](data/eia930) | Hourly demand, generation by source and day-ahead demand forecast for ERCOT (Texas), from EIA-930 | 2024-01-01 to 2026-10-27 | 24,743 hours | Public domain | Yes |
 | [`data/ercot`](data/ercot) | Hourly day-ahead wind and solar forecasts and actual output for ERCOT | 2024-01-01 to 2026-10-27 | 24,719 hours | Not stated; ERCOT terms of use apply | Yes |

@@ -11,6 +11,7 @@
 | 文件夹 | 数据 | 时间 | 规模 | 许可 | 是否放在仓库里 |
 |---|---|---|---|---|---|
 | [`data/utrecht_office_ev`](data/utrecht_office_ev) | 荷兰乌特勒支一个大型办公楼停车场的 EV 充电记录 | 2020-08-25 至 2024-10-02 | 55,379 次充电，约 300 个充电桩 | CC BY-NC-SA 4.0 | 是 |
+| [乌特勒支新传入原始文件夹](data/Electric%20Vehicle%20Charging%20Session%20Data%20of%20Large%20Office%20Parking%20Lot%20_1_all) | 乌特勒支办公停车场充电数据的副本，附展开的问卷资料 | 2020-08-25 至 2024-10-02 | 55,379 次充电（与上一行 CSV 相同）；5 份问卷资料 | 充电数据：CC BY-NC-SA 4.0；问卷资料未注明许可 | 是 |
 | [`data/chargeplace_scotland`](data/chargeplace_scotland) | 苏格兰 ChargePlace Scotland 公共充电网的充电记录 | 2022-10-01 至 2024-03-31 | 约 312 万次充电，3,518 个充电桩 | CC BY 4.0 | 是 |
 | [`data/eia930`](data/eia930) | 德州电网（ERCOT）逐小时的负荷、分电源发电量和日前负荷预测，来自 EIA-930 | 2024-01-01 至 2026-10-27 | 24,743 个小时 | 公有领域 | 是 |
 | [`data/ercot`](data/ercot) | ERCOT 逐小时的风电、光伏日前预测和实际出力 | 2024-01-01 至 2026-10-27 | 24,719 个小时 | 未说明，适用 ERCOT 使用条款 | 是 |
