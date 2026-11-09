@@ -4,14 +4,13 @@ English | [中文](README.zh-CN.md)
 
 Public datasets for studying flexible electric-vehicle (EV) charging and AI computing loads together with Texas wind and solar forecasts, checked and documented in one place.
 
-Six distinct datasets are included; the overview also lists a second folder containing a copy of the Utrecht data. Files are copied unchanged, except that the EIA-930 and ERCOT files are hourly extracts of the published data; SHA-256 checksums of all data files are in `SHA256SUMS`. Please read [Data sources and statement](#data-sources-and-statement) before using the data.
+All six datasets are included, each with its source and license status. Files are copied unchanged, except that the EIA-930 and ERCOT files are hourly extracts of the published data; SHA-256 checksums of all data files are in `SHA256SUMS`. Please read [Data sources and statement](#data-sources-and-statement) before using the data.
 
 ## Overview
 
 | Folder | Data | Period | Size | License | Included |
 |---|---|---|---|---|---|
 | [`data/utrecht_office_ev`](data/utrecht_office_ev) | EV charging sessions of a large office parking lot in Utrecht, the Netherlands | 2020-08-25 to 2024-10-02 | 55,379 sessions, about 300 charge points | CC BY-NC-SA 4.0 | Yes |
-| [`data/Electric Vehicle Charging Session Data of Large Office Parking Lot _1_all`](data/Electric%20Vehicle%20Charging%20Session%20Data%20of%20Large%20Office%20Parking%20Lot%20_1_all) | Newly supplied copy of the Utrecht charging data, with extracted survey documentation | 2020-08-25 to 2024-10-02 | 55,379 sessions (same CSV as the row above); 5 survey documents | Sessions: CC BY-NC-SA 4.0; survey materials: no license stated | Yes |
 | [`data/chargeplace_scotland`](data/chargeplace_scotland) | Charging sessions on the ChargePlace Scotland public network | 2022-10-01 to 2024-03-31 | about 3.12 million sessions, 3,518 charge points | CC BY 4.0 | Yes |
 | [`data/eia930`](data/eia930) | Hourly demand, generation by source and day-ahead demand forecast for ERCOT (Texas), from EIA-930 | 2024-01-01 to 2026-10-27 | 24,743 hours | Public domain | Yes |
 | [`data/ercot`](data/ercot) | Hourly day-ahead wind and solar forecasts and actual output for ERCOT | 2024-01-01 to 2026-10-27 | 24,719 hours | Not stated; ERCOT terms of use apply | Yes |
@@ -27,15 +26,6 @@ Six distinct datasets are included; the overview also lists a second folder cont
 - **Why it is useful.** It is a real workplace site. Cars arrive in the morning and stay most of the working day, far longer than they need to charge, so their charging can be shifted. The site has about 300 charge points: 22 kW chargers with two plugs, giving 11 kW per plug when both are in use.
 - **Key figures.** 55,379 sessions; about 97 per working day in 2024; median stay 7.1 h; median energy 17.6 kWh; three quarters of weekday arrivals between 07:00 and 10:00; median departure 16:17. Charging at 11 kW, the median session would still have 4.7 h to spare.
 - **Caveats.** The site grew over the period (9 charge points in use in 2020, 309 in 2024), and COVID-19 lockdowns depress 2020–2021, so data from 2023 onward best represent the full site. There is almost no charging at weekends. The publishers removed sessions under 1 kWh, under 10 minutes or over 24 hours.
-
-### Electric Vehicle Charging Session Data of Large Office Parking Lot (newly supplied folder)
-
-- **Folder.** [`data/Electric Vehicle Charging Session Data of Large Office Parking Lot _1_all`](data/Electric%20Vehicle%20Charging%20Session%20Data%20of%20Large%20Office%20Parking%20Lot%20_1_all).
-- **Contents.** `202410DatasetEVOfficeParking_v0.csv` contains 55,379 charging sessions from the a.s.r. office parking lot in Utrecht, collected from 2020-08-25 to 2024-10-02. `README.txt` is the supplied source description. `Survey_supplementary/` contains the Dutch survey questions, mailing-consent form, participant information and consent form, email text, and survey README; it does not contain individual responses.
-- **Fields.** Each CSV row describes a session, including pseudonymous charging ID (`EV_id_x`), connection and disconnection times, energy in kWh, infrastructure identifiers, and, where available, survey-derived battery, commute and vehicle information.
-- **Relationship to the existing folder.** The CSV is byte-for-byte identical to the file in `data/utrecht_office_ev`. The five survey files also match the contents of the existing `Survey_supplementary.zip`; the supplied `README.txt` is an earlier version. This is a second copy of the same dataset, not additional sessions.
-- **Use and limitations.** Times are local Netherlands time, including daylight saving time. Some charging IDs are shared; infrastructure and survey fields can be missing. Sessions under 1 kWh, under 10 minutes or over 24 hours were excluded by the publishers. Most employee-deck rails used model-predictive control from March 2023; the source README describes changes to its settings.
-- **License and source.** The charging data are under CC BY-NC-SA 4.0; the supplied README asks users to consult a dataset contact before redistribution. The survey materials' README states that no license was added. See the [source and citation](#data-sources-and-statement) for the Utrecht dataset.
 
 ### 2. ChargePlace Scotland (EV charging)
 
